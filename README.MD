@@ -1,5 +1,5 @@
 # ColorBot
-Telegram Bot [@spb_color](https://www.t.me/@spb_color)  
+Telegram Bot [@spb_color](https://t.me/spb_color)  
 
 This bot takes screenshot of youtube live stream and posts info about current sky color in telegram channel. Source of inspiration - [@colorofberlin](https://twitter.com/colorofberlin)
 
