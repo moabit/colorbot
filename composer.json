@@ -1,0 +1,14 @@
+{
+  "require": {
+    "ext-gd": "*",
+    "ext-json": "*",
+    "php-di/php-di": "^6.3",
+    "monolog/monolog": "^2.2",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ColorBot\\": "src/"
+    }
+  }
+}

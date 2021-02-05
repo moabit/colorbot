@@ -1,0 +1,11 @@
+{
+  "youtube-url": "https://www.youtube.com/watch?v=X-dyUamzjJE",
+  "telegram-api-token":"token",
+  "channel-name": "@yourchannelname",
+  "crop-params": {
+    "x": 1,
+    "y": 2,
+    "width": 1920,
+    "height": 800
+  }
+}
