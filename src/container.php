@@ -11,9 +11,6 @@ return [
     ImageDownloader::class => DI\factory(function (ContainerInterface $c) {
         return new ImageDownloader($c->get('config')['youtube-url'],$c->get('config')['crop-params']);
     }),
-    TwitterOAuth::class => DI\factory(function (ContainerInterface $c) {
-        return new TwitterOAuth('f','ee','ddd','df');
-    }),
     Bot::class => DI\factory(function (ContainerInterface $c) {
         return new Bot($c->get(ColorService::class), $c->get(ImageDownloader::class), $c->get('config')['telegram-api-token'],$c->get('config')['channel-name']);
     }),
