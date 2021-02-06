@@ -3,7 +3,6 @@
 use ColorBot\Services\{Util, ColorService, ImageDownloader};
 use Psr\Container\ContainerInterface;
 use ColorBot\Bot;
-use Abraham\TwitterOAuth\TwitterOAuth;
 
 return [
     'config' => Util::readJSON(__DIR__.'/../config.json'),
