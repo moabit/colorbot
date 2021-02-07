@@ -55,10 +55,10 @@ class Bot
 
         //get actual color
         $this->imageDownloader->getSourceImage();
-        $actualColor = $this->colorService->getNearestColor($this->colorService->getAverageColor(__DIR__ . '/../store/src_img.jpeg'));
+        $actualColor = $this->colorService->getNearestColor($this->colorService->getAverageColor(__DIR__ . '/../storage/src_img.jpeg'));
         $name = $actualColor['name'];
         //do not post if the sky hasn't changed its color
-        $pathToOldColor = __DIR__ . '/../store/color.jpeg';
+        $pathToOldColor = __DIR__ . '/../storage/color.jpeg';
         $previousColor = file_exists($pathToOldColor) ? $this->colorService->getNearestColor($this->colorService->getAverageColor($pathToOldColor)) : null;
         if ($previousColor['name'] == $name) {
             exit;
@@ -77,7 +77,7 @@ class Bot
      */
     protected function postTelegram($message)
     {
-        $cfile = new \CURLFile(__DIR__ . '/../store/color.jpeg', 'image/jpeg');
+        $cfile = new \CURLFile(__DIR__ . '/../storage/color.jpeg', 'image/jpeg');
         $data = ['chat_id' => $this->channelName, 'photo' => $cfile, 'caption' => $message];
         $curl = curl_init();
         curl_setopt_array($curl, [CURLOPT_POST => true,

@@ -23,7 +23,7 @@ class ColorService
      */
     public function __construct()
     {
-        $this->colors = Util::readJSON(__DIR__ . '/../../store/colors_russian.json');
+        $this->colors = Util::readJSON(__DIR__ . '/../../storage/colors_russian.json');
     }
 
     /**
@@ -67,7 +67,7 @@ class ColorService
         $img = imagecreatetruecolor(1000, 1000);
         $color = imagecolorallocate($img, $rgb[0], $rgb[1], $rgb[2]);
         imagefill($img, 0, 0, $color);
-        imagejpeg($img, __DIR__ . '/../../store/color.jpeg', 100);
+        imagejpeg($img, __DIR__ . '/../../storage/color.jpeg', 100);
     }
 
     /**
