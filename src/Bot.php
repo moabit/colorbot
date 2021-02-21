@@ -6,6 +6,7 @@ use ColorBot\Exceptions\PostTelegramException;
 use ColorBot\Services\ColorService;
 use ColorBot\Services\ImageDownloader;
 use ColorBot\Services\Util;
+use ColorBot\Services\WeatherService;
 
 /**
  * Class Bot
@@ -21,6 +22,11 @@ class Bot
      * @var ImageDownloader
      */
     protected ImageDownloader $imageDownloader;
+
+    /**
+     * @var WeatherService
+     */
+    protected WeatherService $weatherService;
     /**
      * @var string
      */
@@ -37,10 +43,12 @@ class Bot
      * @param string $tgToken
      * @param string $channelName
      */
-    public function __construct(ColorService $colorService, ImageDownloader $imageDownloader, string $tgToken, string $channelName)
+    public function __construct(ColorService $colorService, ImageDownloader $imageDownloader, WeatherService $weatherService,
+                                string $tgToken, string $channelName)
     {
         $this->colorService = $colorService;
         $this->imageDownloader = $imageDownloader;
+        $this->weatherService = $weatherService;
         $this->tgToken = $tgToken;
         $this->channelName = $channelName;
     }
@@ -52,23 +60,23 @@ class Bot
      */
     public function run(): void
     {
-
+        $this->weatherService->getActualWeather();
         //get actual color
         $this->imageDownloader->getSourceImage();
         $actualColor = $this->colorService->getNearestColor($this->colorService->getAverageColor(__DIR__ . '/../storage/src_img.jpeg'));
         $name = $actualColor['name'];
         //do not post if the sky hasn't changed its color
         $pathToOldColor = __DIR__ . '/../storage/color.jpeg';
-        $previousColor = file_exists($pathToOldColor) ? $this->colorService->getNearestColor($this->colorService->getAverageColor($pathToOldColor)) : null;
-        if ($previousColor['name'] == $name) {
+        $previousColor = file_exists($pathToOldColor) ? $this->colorService->getNearestColor($this->colorService->getAverageColor($pathToOldColor))['name'] : null;
+        if ($previousColor == $name) {
             exit;
         }
         //post to tg
+        $weather = $this->weatherService->getActualWeather();
         $hexColor = Util::rgbToHex($actualColor['rgb']);
         $this->colorService->createImage($actualColor['rgb']);
-        $message = 'Сейчас небо в Петербурге такого цвета: ' . $name . ' ' . $hexColor;
+        $message = 'Сейчас небо в Петербурге такого цвета: ' . $name . ' ' . $hexColor . "\n \n". 'Погода: ' .$weather['temp']. ' ℃, '. $weather['description'];
         $this->postTelegram($message);
-
     }
 
     /**
@@ -87,7 +95,7 @@ class Bot
             CURLOPT_POSTFIELDS => $data]);
         $res = curl_exec($curl);
         if (curl_error($curl) || json_decode($res, true)['ok'] == false) {
-            throw new PostTelegramException('Не удалось отправить пост в канал. Response:'. $res . 'Curl error:'.curl_error($curl));
+            throw new PostTelegramException('Не удалось отправить пост в канал. Response:' . $res . 'Curl error:' . curl_error($curl));
         }
         curl_close($curl);
     }

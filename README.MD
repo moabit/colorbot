@@ -13,7 +13,7 @@ As source image I take this [stream](https://www.youtube.com/watch?v=X-dyUamzjJE
 
 ## Installation
 1. Create [Telegram bot](https://core.telegram.org/bots/api) and add him to admins of your channel
-1. Clone the project with clone `https://github.com/moabit/colorbot.git`
+1. Clone the project with `git clone https://github.com/moabit/colorbot.git`
 3. Run `composer install`
 3. Edit `config.json ` and set youtube live stream url, your channel and Telegram bot api token
 4. Set crontab to run `bot.php` Example: `0 */3 * * * /usr/bin/php /home/user/colorbot/bot.php`

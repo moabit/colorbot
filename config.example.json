@@ -1,5 +1,7 @@
 {
   "youtube-url": "https://www.youtube.com/watch?v=X-dyUamzjJE",
   "telegram-api-token":"token",
-  "channel-name": "@yourchannelname"
+  "channel-name": "@yourchannelname",
+  "openweather-api-token": "token",
+  "city": "Saint Petersburg"
 }

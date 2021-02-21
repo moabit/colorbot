@@ -40,6 +40,7 @@ class ColorService
         $scaled = imagescale($image, 1, 1, IMG_BICUBIC);
         $index = imagecolorat($scaled, 0, 0);
         $rgb = imagecolorsforindex($scaled, $index);
+        imagedestroy($image);
         return $rgb;
     }
 
@@ -68,6 +69,7 @@ class ColorService
         $color = imagecolorallocate($img, $rgb[0], $rgb[1], $rgb[2]);
         imagefill($img, 0, 0, $color);
         imagejpeg($img, __DIR__ . '/../../storage/color.jpeg', 100);
+        imagedestroy($img);
     }
 
     /**
